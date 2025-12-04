@@ -1,7 +1,7 @@
 # TPPMark 2025
 
 This is a repository for submitted solutions to the TPPMark 2025 problem.
-See `tppmark25.pdf` for the problem description.
+See [`tppmark25.pdf`](https://github.com/ksk/TPPMark2025/blob/main/tppmark25.pdf) for the problem description.
 Each submission is located under the directory named after the person who submitted it.
 All copyrights for all submissions belong to the respective authors.
 
@@ -14,7 +14,7 @@ All copyrights for all submissions belong to the respective authors.
   The script runs on Agda.
 
 - by [Hidekazu Segawa](https://github.com/ksk/TPPMark2025/tree/main/SEGAWA_Hidekazu)  
-  The script runs on Lean. The latest version is found [here](https://github.com/dec9ue/TPPmark_2025/blob/main/TPPmark2025/Basic.lean)
+  The script runs on Lean. The latest version is found [here](https://github.com/dec9ue/TPPmark_2025/blob/main/TPPmark2025/Basic.lean).
 
 - by [Akira Tanaka](https://github.com/ksk/TPPMark2025/tree/main/TANAKA_Akira)  
   The script runs on Rocq 9.0.0 with MathComp. See [`memo.txt`](https://raw.githubusercontent.com/ksk/TPPMark2025/refs/heads/main/TANAKA_Akira/memo.txt) for the detail.
