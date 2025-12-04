@@ -8,7 +8,7 @@ All copyrights for all submissions belong to the respective authors.
 ## Solutions (in the order of earliest submission)
 
 - by [Kenta Inoue](https://github.com/ksk/TPPMark2025/tree/main/INOUE_Kenta)  
-  The script runs on Coq with mathcomp 1.14.0.
+  The script runs on Coq with mathcomp 1.14.0. See his explanatory article [here](https://qiita.com/nekonibox/items/bc85ece3ee8e42240fe6).
 
 - by [Makoto Kanazawa](https://github.com/ksk/TPPMark2025/tree/main/KANAZAWA_Makoto)  
   The script runs on Agda.
