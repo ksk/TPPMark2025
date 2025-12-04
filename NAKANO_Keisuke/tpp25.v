@@ -3,9 +3,6 @@ From mathcomp Require Import all_ssreflect.
 From HB Require Import structures.
 Parameter (n : nat) (pos_n : 0 < n).
 
-Notation "f =3 g" := (forall x y z, f x y z = g x y z) (at level 70).
-Lemma xorbA : associative xorb. Proof. by case; case; case. Qed.
-
 Lemma filter_enum1 [T : finType] {p : T -> bool} (a : T) (q : T -> bool) :
   (forall x, p x = (x == a) && q x) ->
   filter p (enum T) = if q a then [:: a] else [::].
