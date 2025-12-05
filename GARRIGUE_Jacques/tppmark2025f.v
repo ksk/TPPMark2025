@@ -102,28 +102,31 @@ Definition seq_of_XYZ (s : XYZ) :=
 
 Lemma switch_seqA l c : switch_seq l c = c + \sum_(a <- l) ray a.
 Proof.
-rewrite /switch_seq.
 elim: l => [|a l IH] /=; first by rewrite big_nil addr0.
-by rewrite /switch big_cons IH addrAC addrA.
+by rewrite big_cons IH addrA addrAC.
 Qed.
 
 Lemma switch_seqK l : involutive (switch_seq l).
 Proof.
 move=> c; rewrite !switch_seqA.
-apply/ffunP => /= -[[] i j k].
-by rewrite !ffunE /= -addrA [X in _ + X]addbb addr0.
+by apply/ffunP => /= -[[i j k]]; rewrite !ffunE -addrA [X in _ + X]addbb addr0.
 Qed.
+
+Lemma parity0 : parity 0.
+Proof. move=> *; rewrite !ffunE; ring. Qed.
+
+Lemma parity_add (c1 c2 : cube) : parity c1 -> parity c2 -> parity (c1 + c2).
+Proof. move=> pc1 pc2 i j k; rewrite !ffunE pc1 pc2; ring. Qed.
+
+Lemma parity_ray a : parity (ray a).
+Proof. by case: a => -[] p i j k; rewrite !ffunE; do! case: (_ == _). Qed.
 
 (* Invariant is kept by sequence of actions *)
 Lemma solvable'_implies_parity c : solvable' c -> parity c.
 Proof.
 case=> l /(f_equal (switch_seq l)).
-rewrite switch_seqK => ->.
-elim: l => [| [f [i j]] l IH] /=.
-  move=> *; rewrite !ffunE; ring.
-move=> x y z /=; rewrite !ffunE IH.
-(case: f => /=; do! case: (_ == _));
-by rewrite !/(_ + _) /= !(addbT,addbF,negbK,addbN,addNb).
+rewrite switch_seqK switch_seqA add0r => ->.
+apply: big_ind => *; [exact: parity0 | exact: parity_add | exact: parity_ray].
 Qed.
 
 (* Only one ray from a given face crosses a given point *)
@@ -131,16 +134,15 @@ Lemma sum_cond_ray P f i j k :
   \sum_(p : coord2 | P p) ray (f, p) (i, j, k) = P (proj f (i,j,k)).
 Proof.
 rewrite big_mkcond (bigD1 (proj f (i,j,k))) // big1 /=.
-  by rewrite ffunE eqxx addr0; case: ifP.
-by case=> ??; rewrite !ffunE /= eq_sym => /negbTE ->; case: ifP.
+  by rewrite ffunE eqxx addr0 [LHS]orbF.
+by case=> ??; rewrite !ffunE /= eq_sym => /negbTE ->; rewrite if_same.
 Qed.
 
 Theorem solvableP c : solvable c <-> solvable' c.
 Proof.
 split.
-- case => s H.
-  exists (seq_of_XYZ s).
-  apply/ffunP => /= -[[] i j k].
+- case => s H; exists (seq_of_XYZ s).
+  apply/ffunP => /= -[[i j k]].
   rewrite /seq_of_XYZ switch_seqA !big_cat /= !ffunE !sum_ffunE.
   rewrite !big_map !big_filter !big_enum_cond !sum_cond_ray /=.
   by rewrite -[RHS](addbb (c (i,j,k))) -[RHS]/(_ + _) -{3}H !addrA.
